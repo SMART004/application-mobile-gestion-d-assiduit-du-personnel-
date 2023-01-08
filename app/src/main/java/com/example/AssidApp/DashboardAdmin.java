@@ -22,6 +22,7 @@ import java.util.Calendar;
 public class DashboardAdmin extends AppCompatActivity {
     Button scan, histo, profil, group, logout;
     DatabaseReference mhist;
+    String date, resultat;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +33,6 @@ public class DashboardAdmin extends AppCompatActivity {
         profil = findViewById(R.id.profil1);
         group = findViewById(R.id.group);
         logout = findViewById(R.id.logout1);
-
         mhist = FirebaseDatabase.getInstance().getReference("save");
 
        histo.setOnClickListener(new View.OnClickListener() {
@@ -77,23 +77,14 @@ public class DashboardAdmin extends AppCompatActivity {
     }
     ActivityResultLauncher<ScanOptions> barLauncher = registerForActivityResult(new ScanContract(), result -> {
         if(result.getContents() != null) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(DashboardAdmin.this);
-            builder.setTitle("Result");
-            builder.setMessage(result.getContents());
-            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    dialogInterface.dismiss();
-                }
-            }).show();
-
-            String resultat = result.getContents();
+            resultat = result.getContents();
             Calendar cal = Calendar.getInstance();
             SimpleDateFormat stext = new SimpleDateFormat("dd MMM yyyy  hh:mm:ss a");
-            String date = stext.format(cal.getTime());
+            date = stext.format(cal.getTime());
 
-            savescan scan = new savescan(resultat, date);
-            mhist.child(date).setValue(scan);
+            savescan scanner = new savescan(resultat, date);
+            mhist.push().setValue(scanner);
+            startActivity(new Intent(getApplicationContext(), historique.class));
 
         }
 

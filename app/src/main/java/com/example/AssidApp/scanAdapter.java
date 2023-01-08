@@ -35,14 +35,14 @@ public class scanAdapter extends RecyclerView.Adapter<scanAdapter.MyViewHolder> 
     @Override
     public scanAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.save_scan,parent,false);
-        return new scanAdapter.MyViewHolder(view);
+        return new MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull scanAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         savescan savescan = saveModelList.get(position);
         holder.text.setText(savescan.getSaves());
-        holder.text.setText(savescan.getDate());
+        holder.date.setText(savescan.getDate());
     }
 
     @Override

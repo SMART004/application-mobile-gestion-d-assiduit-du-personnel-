@@ -17,4 +17,12 @@ public class savescan {
     public String getDate() {
         return date;
     }
+
+    public void setSaves(String saves) {
+        this.saves = saves;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 }

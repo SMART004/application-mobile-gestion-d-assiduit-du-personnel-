@@ -47,15 +47,12 @@ public class Dashboard extends AppCompatActivity {
                     if (!uid.equals(FirebaseAuth.getInstance().getUid())){
 
                        String name = snapshot.child(FirebaseAuth.getInstance().getUid()).child("userName").getValue(String.class);
-                       String email = snapshot.child(FirebaseAuth.getInstance().getUid()).child("userEmail").getValue(String.class);
-                       String phone = snapshot.child(FirebaseAuth.getInstance().getUid()).child("userPhone").getValue(String.class);
-
 
                         //Toast.makeText(Dashboard.this, "Name: "+name+"\n"+"Email: "+email+"\n"+"Phone: "+phone, Toast.LENGTH_LONG).show();
 
                        MultiFormatWriter writer = new MultiFormatWriter();
                         try{
-                            BitMatrix matrix = writer.encode("Name: "+name+"\n"+"Email: "+email+"\n"+"Phone: "+phone, BarcodeFormat.QR_CODE, 800, 800);
+                            BitMatrix matrix = writer.encode("Name: "+name, BarcodeFormat.QR_CODE, 800, 800);
 
                             BarcodeEncoder encoder = new BarcodeEncoder();
                             Bitmap bitmap = encoder.createBitmap(matrix);
